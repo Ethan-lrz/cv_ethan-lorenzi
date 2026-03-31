@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Ethan Lorenzi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-1: #3b82f6;
+            --accent-2: #8b5cf6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 8%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-1);
+        }
+        section {
+            padding: 7rem 8% 4rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h2.section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        h2.section-title::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent-1), var(--accent-2));
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        /* --- ACCUEIL (HERO) --- */
+        #accueil {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .hero-text h1 span {
+            background: linear-gradient(to right, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(to right, var(--accent-1), var(--accent-2));
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            margin-left: 1rem;
+            border: 2px solid var(--accent-1);
+            color: var(--accent-1);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-1);
+            color: white;
+        }
+
+        .hero-img {
+            flex: 1;
+            text-align: center;
+        }
+
+        .hero-img img {
+            width: 100%;
+            max-width: 380px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            border: 2px solid rgba(255,255,255,0.1);
+            object-fit: cover;
+        }
+
+        /* --- COMPÉTENCES --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-1);
+        }
+
+        .skill-card i {
+            font-size: 3rem;
+            color: var(--accent-1);
+            margin-bottom: 1rem;
+        }
+
+        .skill-list {
+            list-style: none;
+            margin-top: 1rem;
+            color: var(--text-muted);
+        }
+        
+        .skill-list li {
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+
+        /* --- EXPÉRIENCE (TIMELINE) --- */
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 0;
+            width: 18px;
+            height: 18px;
+            background: var(--accent-1);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-1);
+        }
+
+        .timeline-content {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .timeline-date {
+            color: var(--accent-1);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* --- PROJETS --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            transform: scale(1.03);
+        }
+
+.project-img {
+    width: 100%;
+    aspect-ratio: 16 / 9; 
+    overflow: hidden;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.project-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    object-position: center; 
+    transition: transform 0.5s ease;
+}
+
+.project-card:hover .project-img img {
+    transform: scale(1.1);
+}
+
+        .project-info {
+            padding: 2rem;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1rem 0 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        /* --- CONTACT --- */
+        .contact-container {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .contact-card {
+            background: var(--card-bg);
+            padding: 2rem 4rem;
+            border-radius: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-main);
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s;
+            min-width: 250px;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            background: rgba(59, 130, 246, 0.05);
+            border-color: var(--accent-1);
+        }
+
+        .contact-card i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-1);
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            background: var(--card-bg);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .hidden {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease-out;
+        }
+
+        .show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media(max-width: 768px) {
+            #accueil { flex-direction: column; text-align: center; padding-top: 6rem;}
+            .hero-text h1 { font-size: 2.5rem; }
+            .hero-text p { margin: 0 auto 2rem; }
+            .nav-links { display: none; }
+            .btn-secondary { margin-left: 0; margin-top: 1rem; display: block; width: fit-content; margin: 1rem auto; }
+            section { padding: 4rem 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Portfolio.</div>
+        <ul class="nav-links">
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#projet">Projet</a></li>
+            <li><a href="#competences">Compétences</a></li>
+            <li><a href="#experience">Expérience</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="accueil" class="hidden">
+        <div class="hero-text">
+            <p>Bonjour, je suis</p>
+            <h1>Ethan <span>Lorenzi</span></h1>
+            <p>Étudiant passionné par l'informatique, le développement et la cybersécurité. Je suis actuellement à la recherche d'un stage non-rémunéré ainsi qu'une alternance pour mettre mes compétences en pratique.</p>
+            <div>
+                <a href="#contact" class="btn-primary">Me contacter</a>
+                <a href="#projet" class="btn-secondary">Voir mon projet</a>
+            </div>
+        </div>
+        <div class="hero-img">
+            <img src="img/ethan.png" alt="Portrait de Ethan Lorenzi">
+        </div>
+    </section>
+
+    <section id="projet" class="hidden">
+        <h2 class="section-title">Projet Principal</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-img">
+                    <img src="img/projet.png" alt="Aperçu du jeu vidéo interactif">
+                </div>
+                <div class="project-info">
+                    <h3>Jeu Vidéo Interactif</h3>
+                    <p>Conception et développement d'un jeu vidéo original au sein d'une équipe projet. J'ai notamment pris en charge la gestion de la base de données (SQL) ainsi que la direction artistique globale.</p>
+                    <div class="project-tags">
+                        <span class="tag">HTML/CSS/JS</span>
+                        <span class="tag">SQL</span>
+                        <span class="tag">Travail d'équipe</span>
+                        <span class="tag">UI/UX Design</span>
+                    </div>
+                    <a href="https://github.com/Ethan-lrz" target="_blank" class="btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Code Source sur GitHub</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="competences" class="hidden">
+        <h2 class="section-title">Mes Compétences</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <i class="fa-solid fa-code"></i>
+                <h3>Langages</h3>
+                <ul class="skill-list">
+                    <li>C#</li>
+                    <li>Python</li>
+                    <li>JavaScript</li>
+                    <li>HTML / CSS</li>
+                </ul>
+            </div>
+            <div class="skill-card">
+                <i class="fa-solid fa-shield-halved"></i>
+                <h3>Spécialités</h3>
+                <ul class="skill-list">
+                    <li>Cybersécurité</li>
+                    <li>Systèmes & Réseaux</li>
+                    <li>Développement Web</li>
+                </ul>
+            </div>
+            <div class="skill-card">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h3>Outils</h3>
+                <ul class="skill-list">
+                    <li>GitHub & VS Code</li>
+                    <li>Debian / Linux</li>
+                    <li>Hyper-V</li>
+                    <li>Cisco & Windows Server</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="hidden">
+        <h2 class="section-title">Expérience Professionnelle</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-date">2024 - 2029 (En cours)</span>
+                    <h3>Étudiant en Informatique</h3>
+                    <h4>Sup de Vinci Bordeaux</h4>
+                    <p>Apprentissage approfondi des infrastructures systèmes et réseaux, cybersécurité, solutions Cisco, ainsi que l'administration Windows Server & Client.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-date">Avril 2025 - Juin 2025</span>
+                    <h3>Équipier polyvalent</h3>
+                    <h4>McDonald's</h4>
+                    <p>Gestion du comptoir, entretien des espaces, accueil client et prise de commande au drive. Développement de la réactivité et du sens du service.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="hidden">
+        <h2 class="section-title">Me Contacter</h2>
+        <div class="contact-container">
+            <a href="mailto:lorenzi.ethan@gmail.com" class="contact-card">
+                <i class="fa-solid fa-envelope"></i>
+                <h3>Email</h3>
+                <p>lorenzi.ethan@gmail.com</p>
+            </a>
+            <a href="https://www.linkedin.com/in/ethan-lorenzi/" target="_blank" class="contact-card">
+                <i class="fa-brands fa-linkedin"></i>
+                <h3>LinkedIn</h3>
+                <p>Ethan Lorenzi</p>
+            </a>
+            <a href="https://github.com/Ethan-lrz" target="_blank" class="contact-card">
+                <i class="fa-brands fa-github"></i>
+                <h3>GitHub</h3>
+                <p>Ethan-lrz</p>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Ethan Lorenzi. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        const hiddenElements = document.querySelectorAll('.hidden');
+        hiddenElements.forEach((el) => observer.observe(el));
+    </script>
+</body>
+</html>
